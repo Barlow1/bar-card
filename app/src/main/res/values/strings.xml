@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">bar-card</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="bar_card">Bar Card</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="login_success">Login Successful!</string>
+    <string name="login_fail">Login Failed</string>
+    <string name="welcome">Welcome to Bar Card</string>
+    <string name="login_fail_msg">Email or password could not be found</string>
+    <string name="register_success">Registration Successful!</string>
+    <string name="register_fail">Registration Failed</string>
+    <string name="register_welcome">Welcome to Bar Card</string>
+    <string name="register_fail_msg">You most likely already have an account. Try logging in.</string>
+    <string name="text_not_member">No account yet? Create one</string>
+    <string name="text_already_member">Already have an Account? Login</string>
+</resources>
