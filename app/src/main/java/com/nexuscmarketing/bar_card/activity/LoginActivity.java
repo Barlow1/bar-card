@@ -2,6 +2,7 @@ package com.nexuscmarketing.bar_card.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +13,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nexuscmarketing.bar_card.R;
+import com.nexuscmarketing.bar_card.model.User;
 import com.nexuscmarketing.bar_card.sql.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
     Boolean existingUser;
+    User verifiedUser;
+
+    public void setVerifiedUser(User verifiedUser) {
+        this.verifiedUser = verifiedUser;
+    }
 
     protected void setExistingUser(Boolean exists) {
         this.existingUser = exists;
@@ -50,7 +57,19 @@ public class LoginActivity extends AppCompatActivity {
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
-                            setExistingUser(new DatabaseHelper().isExistingUser(email, password));
+                            try {
+                                User verifiedUser = new DatabaseHelper().getExistingUser(email, password);
+                                setVerifiedUser(verifiedUser);
+                            } catch (Resources.NotFoundException e) {
+                                setExistingUser(false);
+                                setVerifiedUser(null);
+                                return null;
+                            }
+                            if (verifiedUser != null) {
+                                setExistingUser(true);
+                            } else {
+                                setExistingUser(false);
+                            }
                             Log.i("User Exists", existingUser.toString());
                             return null;
                         }
@@ -59,6 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                         protected void onPostExecute(Void v) {
                             if (existingUser) {
                                 loginSuccessAlert.show();
+                                Intent cardIntent = new Intent(LoginActivity.this, CardActivity.class);
+                                cardIntent.putExtra("User", verifiedUser);
+                                startActivity(cardIntent);
                             } else {
                                 loginFailedAlert.show();
                             }

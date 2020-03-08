@@ -21,5 +21,9 @@
         <activity android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.LoginActivity">
         </activity>
+        <activity android:name=".activity.CardActivity">
+    </activity>
+        <activity android:name=".activity.AddCardActivity"
+            android:parentActivityName=".activity.CardActivity"/>
     </application>
 </manifest>

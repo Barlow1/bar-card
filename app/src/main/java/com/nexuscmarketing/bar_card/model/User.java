@@ -1,14 +1,16 @@
 package com.nexuscmarketing.bar_card.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
 
     private UUID id;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
+    private Integer admin;
 
     public UUID getId() {
         return id;
@@ -48,5 +50,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Integer getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Integer admin) {
+        this.admin = admin;
     }
 }

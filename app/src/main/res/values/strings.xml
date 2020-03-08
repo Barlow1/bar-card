@@ -17,4 +17,8 @@
     <string name="register_fail_msg">You most likely already have an account. Try logging in.</string>
     <string name="text_not_member">No account yet? Create one</string>
     <string name="text_already_member">Already have an Account? Login</string>
+    <string name="admin_user">I own a bar and want to be an admin</string>
+    <string name="no_cards">You have no BarCards :(</string>
+
+
 </resources>

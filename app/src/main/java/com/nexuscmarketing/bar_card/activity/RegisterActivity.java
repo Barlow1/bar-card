@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextView registerEmail = findViewById(R.id.register_email);
         TextView registerPassword = findViewById(R.id.register_password);
         TextView loginLink = findViewById(R.id.link_login);
+        CheckBox registerAdminCheck = findViewById(R.id.admin_check);
 
         AlertDialog registerSuccessAlert = new AlertDialog.Builder(this)
                 .setTitle(R.string.register_success)
@@ -61,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String lastName = registerLastName.getText().toString();
                     String email = registerEmail.getText().toString();
                     String password = registerPassword.getText().toString();
+                    Integer adminCheck = registerAdminCheck.isChecked() ? 1 : 0;
                     User newUser = new User();
 
                     new AsyncTask<Void, Void, Void>() {
@@ -71,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                             newUser.setLastName(lastName);
                             newUser.setEmail(email);
                             newUser.setPassword(password);
+                            newUser.setAdmin(adminCheck);
                         }
 
                         @Override
