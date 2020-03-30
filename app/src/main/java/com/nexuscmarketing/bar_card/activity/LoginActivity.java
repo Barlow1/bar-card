@@ -77,10 +77,18 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Void v) {
                             if (existingUser) {
-                                loginSuccessAlert.show();
-                                Intent cardIntent = new Intent(LoginActivity.this, CardActivity.class);
-                                cardIntent.putExtra("User", verifiedUser);
-                                startActivity(cardIntent);
+                                if (verifiedUser.getAdmin() == 1) {
+                                    loginSuccessAlert.show();
+                                    Intent adminPunchIntent = new Intent(LoginActivity.this, AdminPunchActivity.class);
+                                    adminPunchIntent.putExtra("AdminUser", verifiedUser);
+                                    startActivity(adminPunchIntent);
+                                } else {
+                                    loginSuccessAlert.show();
+                                    Intent cardIntent = new Intent(LoginActivity.this, CardActivity.class);
+                                    cardIntent.putExtra("User", verifiedUser);
+                                    startActivity(cardIntent);
+                                }
+
                             } else {
                                 loginFailedAlert.show();
                             }

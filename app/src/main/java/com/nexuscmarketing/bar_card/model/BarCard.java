@@ -9,15 +9,8 @@ public class BarCard implements Serializable {
     private int image;
     private String barName;
     private String reward;
-    private Integer punchesRemaining;
-
-    public Integer getPunchesRemaining() {
-        return punchesRemaining;
-    }
-
-    public void setPunchesRemaining(Integer punchesRemaining) {
-        this.punchesRemaining = punchesRemaining;
-    }
+    private Integer punches;
+    private Integer rewardPunches;
 
     public UUID getId() {
         return id;
@@ -49,5 +42,22 @@ public class BarCard implements Serializable {
 
     public void setReward(String reward) {
         this.reward = reward;
+    }
+
+
+    public Integer getPunches() {
+        return punches;
+    }
+
+    public void setPunches(Integer punches) {
+        this.punches = punches;
+    }
+
+    public Integer getRewardPunches() {
+        return rewardPunches;
+    }
+
+    public void setRewardPunches(Integer rewardPunches) {
+        this.rewardPunches = rewardPunches;
     }
 }

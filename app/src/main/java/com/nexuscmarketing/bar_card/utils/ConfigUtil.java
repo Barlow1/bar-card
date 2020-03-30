@@ -22,7 +22,7 @@ public class ConfigUtil {
         return resultStringBuilder.toString();
     }
 
-    public static String getProperty(String key) throws IOException, NullPointerException{
+    public static String getProperty(String key) throws IOException, NullPointerException {
         Properties properties = new Properties();
         InputStream configReader = ConfigUtil.class.getClassLoader().getResourceAsStream("config.properties");
         properties.load(configReader);

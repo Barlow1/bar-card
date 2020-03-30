@@ -9,6 +9,7 @@ import com.healthmarketscience.sqlbuilder.DeleteQuery;
 import com.healthmarketscience.sqlbuilder.FunctionCall;
 import com.healthmarketscience.sqlbuilder.InsertQuery;
 import com.healthmarketscience.sqlbuilder.SelectQuery;
+import com.healthmarketscience.sqlbuilder.UpdateQuery;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbColumn;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
@@ -16,6 +17,7 @@ import com.healthmarketscience.sqlbuilder.dbspec.basic.DbTable;
 import com.nexuscmarketing.bar_card.model.Bar;
 import com.nexuscmarketing.bar_card.model.BarCard;
 import com.nexuscmarketing.bar_card.model.User;
+import com.nexuscmarketing.bar_card.model.UserBarCard;
 import com.nexuscmarketing.bar_card.utils.ConfigUtil;
 import com.nexuscmarketing.bar_card.utils.ResourceUtil;
 
@@ -51,6 +53,8 @@ public class DatabaseHelper {
     private DbTable BAR = new DbTable(schema, "bar");
     private DbColumn BAR_ID = new DbColumn(BAR, "id", "VARCHAR", 36);
     private DbColumn BAR_NAME = new DbColumn(BAR, "bar_name", "VARCHAR", 50);
+    private DbColumn ADMIN_ID = new DbColumn(BAR, "admin_id", "VARCHAR", 36);
+
 
     private DbTable BAR_CARD = new DbTable(schema, "bar_card");
     private DbColumn BAR_CARD_ID = new DbColumn(BAR_CARD, "id", "VARCHAR", 36);
@@ -66,7 +70,6 @@ public class DatabaseHelper {
     private DbColumn BAR_CARD_TEMPLATE_IMG_NAME = new DbColumn(BAR_CARD_TEMPLATE, "img_name", "VARCHAR", 50);
     private DbColumn BAR_CARD_TEMPLATE_REWARD_PUNCHES = new DbColumn(BAR_CARD_TEMPLATE, "reward_punches", "INT", 10);
     private DbColumn BAR_CARD_TEMPLATE_REWARD = new DbColumn(BAR_CARD_TEMPLATE, "reward", "VARCHAR", 50);
-
 
 
     public void connectDb() {
@@ -163,7 +166,7 @@ public class DatabaseHelper {
         }
     }
 
-    public void insertBarCard(Bar bar, User user) throws SQLException{
+    public void insertBarCard(Bar bar, User user) throws SQLException {
         String insertBarCard = new InsertQuery(BAR_CARD)
                 .addColumn(BAR_CARD_ID, UUID.randomUUID())
                 .addColumn(BAR_CARD_BAR_ID, bar.getId())
@@ -187,7 +190,7 @@ public class DatabaseHelper {
 
     }
 
-    public void deleteBarCard(BarCard barCard) throws SQLException{
+    public void deleteBarCard(BarCard barCard) throws SQLException {
         String insertBarCard = new DeleteQuery(BAR_CARD)
                 .addCondition(BinaryCondition.equalTo(BAR_CARD_ID, barCard.getId().toString()))
                 .validate().toString();
@@ -213,17 +216,17 @@ public class DatabaseHelper {
                 .addColumns(BAR_ID, BAR_NAME, BAR_CARD_TEMPLATE_IMG_NAME, BAR_CARD_TEMPLATE_REWARD_PUNCHES, BAR_CARD_TEMPLATE_REWARD)
                 .validate().toString();
 
-            connectDb();
-            stmtObj = connObj.prepareStatement(getBarList);
-            resObj = stmtObj.executeQuery();
+        connectDb();
+        stmtObj = connObj.prepareStatement(getBarList);
+        resObj = stmtObj.executeQuery();
 
-            while (resObj.next()) {
-                Log.i("getBarList", resObj.getString(1));
-                UUID barUUID = UUID.fromString(resObj.getString(1));
-                barList.add(new Bar(barUUID, resObj.getString(2), resObj.getString(3), resObj.getInt(4), resObj.getString(5)));
-            }
-            disconnectDb();
-            return barList;
+        while (resObj.next()) {
+            Log.i("getBarList", resObj.getString(1));
+            UUID barUUID = UUID.fromString(resObj.getString(1));
+            barList.add(new Bar(barUUID, resObj.getString(2), resObj.getString(3), resObj.getInt(4), resObj.getString(5)));
+        }
+        disconnectDb();
+        return barList;
     }
 
     public ArrayList<BarCard> getUserBarCards(Context context, UUID userId) throws SQLException {
@@ -243,16 +246,79 @@ public class DatabaseHelper {
         while (resObj.next()) {
             Log.i("getBarList", resObj.getString(1));
             UUID barCardUUID = UUID.fromString(resObj.getString(1));
-            Integer punchesRemaining = resObj.getInt(4) - resObj.getInt(3);
             BarCard userCard = new BarCard();
             userCard.setId(barCardUUID);
             userCard.setBarName(resObj.getString(2));
-            userCard.setPunchesRemaining(punchesRemaining);
+            userCard.setPunches(resObj.getInt(3));
+            userCard.setRewardPunches(resObj.getInt(4));
             userCard.setReward(resObj.getString(5));
             userCard.setImage(ResourceUtil.getDrawableIdByResName(context, resObj.getString(6)));
             userBarCards.add(userCard);
         }
         disconnectDb();
         return userBarCards;
+    }
+
+    public ArrayList<UserBarCard> getUsersWithBarCards(UUID bardId, String email) throws SQLException {
+        ArrayList<UserBarCard> userSearchResults = new ArrayList<>();
+        String getUsers = new SelectQuery()
+                .addFromTable(USER)
+                .addJoin(SelectQuery.JoinType.INNER, USER, BAR_CARD, BinaryCondition.equalTo(BAR_CARD_USER_ID, ID))
+                .addCondition(BinaryCondition.equalTo(BAR_CARD_BAR_ID, bardId))
+                .addCondition(BinaryCondition.equalTo(EMAIL, email))
+                .addColumns(BAR_CARD_ID, FIRST_NAME, LAST_NAME, EMAIL, PUCNHES)
+                .validate().toString();
+
+        connectDb();
+        stmtObj = connObj.prepareStatement(getUsers);
+        resObj = stmtObj.executeQuery();
+
+        while (resObj.next()) {
+            Log.i("getUsersWithBarCards", resObj.getString(1));
+            UUID barCardUUID = UUID.fromString(resObj.getString(1));
+            UserBarCard userBarCard = new UserBarCard();
+            userBarCard.setBarCardId(barCardUUID);
+            userBarCard.setFirstName(resObj.getString(2));
+            userBarCard.setLastName(resObj.getString(3));
+            userBarCard.setEmail(resObj.getString(4));
+            userBarCard.setPunches(resObj.getInt(5));
+            userSearchResults.add(userBarCard);
+        }
+        disconnectDb();
+        return userSearchResults;
+    }
+
+    public Bar getAdminBar(UUID userId) throws SQLException {
+        Bar adminBar = new Bar();
+        String getUserBarCards = new SelectQuery()
+                .addFromTable(BAR)
+                .addCondition(BinaryCondition.equalTo(ADMIN_ID, userId))
+                .addColumns(BAR_ID, BAR_NAME)
+                .validate().toString();
+
+        connectDb();
+        stmtObj = connObj.prepareStatement(getUserBarCards);
+        resObj = stmtObj.executeQuery();
+
+        if (resObj.next()) {
+            Log.i("getAdminBar", resObj.getString(1));
+            UUID barId = UUID.fromString(resObj.getString(1));
+            adminBar.setId(barId);
+            adminBar.setBarName(resObj.getString(2));
+        }
+        disconnectDb();
+        return adminBar;
+    }
+
+    public void punchBarCard(UUID barCardId, int punches) throws SQLException {
+        String punchBarCard = new UpdateQuery(BAR_CARD)
+                .addCondition(BinaryCondition.equalTo(BAR_CARD_ID, barCardId))
+                .addSetClause(PUCNHES, punches + 1)
+                .validate().toString();
+
+        connectDb();
+        stmtObj = connObj.prepareStatement(punchBarCard);
+        stmtObj.executeUpdate();
+        disconnectDb();
     }
 }

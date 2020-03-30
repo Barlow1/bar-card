@@ -1,8 +1,9 @@
 package com.nexuscmarketing.bar_card.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Bar {
+public class Bar implements Serializable {
 
     private UUID id;
     private String barName;
@@ -10,6 +11,9 @@ public class Bar {
     private Integer rewardPunches;
     private String reward;
 
+
+    public Bar() {
+    }
 
     public Bar(UUID id, String barName, String imageName, Integer rewardPunches, String reward) {
         this.id = id;

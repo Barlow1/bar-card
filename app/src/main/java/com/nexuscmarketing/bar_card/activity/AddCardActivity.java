@@ -104,8 +104,10 @@ public class AddCardActivity extends AppCompatActivity {
                             @Override
                             protected void onPostExecute(Void aVoid) {
                                 super.onPostExecute(aVoid);
-                                Intent barCardIntent = new Intent(AddCardActivity.this, CardActivity.class);
-                                startActivity(barCardIntent);
+                                finish();
+
+                                Intent barCardIntent = getParentActivityIntent();
+                                navigateUpTo(barCardIntent);
                             }
                         }.execute();
                     }

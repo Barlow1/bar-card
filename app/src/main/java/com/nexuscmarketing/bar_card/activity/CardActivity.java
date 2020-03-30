@@ -122,49 +122,32 @@ public class CardActivity extends AppCompatActivity {
                 cardViewAdapter.setOnItemClickListener(new CardViewAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View itemView, int position) {
-                            new AsyncTask<Void, Void, Void>() {
+                        new AsyncTask<Void, Void, Void>() {
 
-                                @Override
-                                protected Void doInBackground(Void... voids) {
-                                    try {
-                                        BarCard barCard = barCardArrayList.get(position);
-                                        new DatabaseHelper().deleteBarCard(barCard);
-                                    }
-                                    catch (SQLException e) {
-                                        Log.e("getUserBarCards","Failed to get UsersCards do to SQL Exception", e);
-                                    }
-                                    return null;
+                            @Override
+                            protected Void doInBackground(Void... voids) {
+                                try {
+                                    BarCard barCard = barCardArrayList.get(position);
+                                    new DatabaseHelper().deleteBarCard(barCard);
+                                } catch (SQLException e) {
+                                    Log.e("getUserBarCards", "Failed to get UsersCards do to SQL Exception", e);
                                 }
+                                return null;
+                            }
 
-                                @Override
-                                protected void onPostExecute(Void aVoid) {
-                                    super.onPostExecute(aVoid);
-                                    finish();
-                                    overridePendingTransition(0, 0);
-                                    startActivity(getIntent());
-                                    overridePendingTransition(0, 0);
-                                }
-                            }.execute();
-                        }
-                    });
+                            @Override
+                            protected void onPostExecute(Void aVoid) {
+                                super.onPostExecute(aVoid);
+                                finish();
+                                overridePendingTransition(0, 0);
+                                startActivity(getIntent());
+                                overridePendingTransition(0, 0);
+                            }
+                        }.execute();
+                    }
+                });
                 cardView.setAdapter(cardViewAdapter);
             }
         }.execute();
-
-//        BarCard noOtherPub = new BarCard();
-//        noOtherPub.setBarName("No Other Pub");
-//        noOtherPub.setId(0);
-//        noOtherPub.setImage(R.drawable.no_other_pub_logo);
-//        noOtherPub.setPunchesRemaining(3);
-//        noOtherPub.setReward("Free Beer!");
-//
-//        BarCard nexus = new BarCard();
-//        nexus.setBarName("Nexus Creative Marketing");
-//        nexus.setId(1);
-//        nexus.setImage(R.drawable.nexuswebsitelogoblack);
-//        nexus.setPunchesRemaining(5);
-//        nexus.setReward("Free Website!");
-//        barCardArrayList.add(noOtherPub);
-//        barCardArrayList.add(nexus);
     }
 }
