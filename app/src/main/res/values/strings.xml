@@ -9,7 +9,7 @@
     <string name="last_name">Last Name</string>
     <string name="login_success">Login Successful!</string>
     <string name="login_fail">Login Failed</string>
-    <string name="welcome">Welcome to Bar Card</string>
+    <string name="welcome">Welcome to BarCard</string>
     <string name="login_fail_msg">Email or password could not be found</string>
     <string name="register_success">Registration Successful!</string>
     <string name="register_fail">Registration Failed</string>
@@ -20,8 +20,9 @@
     <string name="admin_user">I own a bar and want to be an admin</string>
     <string name="no_cards">You have no BarCards :(</string>
     <string name="admin_search_label">User Punch Search</string>
-    <string name="admin_search_hint">Email Address</string>
+    <string name="admin_search_hint">Email Address, First Name, Last Name</string>
     <string name="static_punches">Punches:</string>
     <string name="admin_welcome">Welcome Bar-Card Admin!</string>
     <string name="search_user">Search for a user</string>
+    <string name="no_user_cards">No user BarCards were found :(</string>
 </resources>

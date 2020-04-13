@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +36,7 @@ public class CardActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        preferences.edit().putString("User",loggedInUser.getId().toString()).apply();
+        preferences.edit().putString("User", loggedInUser.getId().toString()).apply();
     }
 
     @Override
@@ -65,7 +64,7 @@ public class CardActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.main_menu_add) {
-                    Intent addCardIntent = new Intent(CardActivity.this, AddCardActivity.class);
+            Intent addCardIntent = new Intent(CardActivity.this, AddCardActivity.class);
             addCardIntent.putExtra("User", loggedInUser);
             startActivity(addCardIntent);
         }
@@ -82,8 +81,7 @@ public class CardActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             loggedInUser = (User) savedInstanceState.get("User");
-        }
-        else {
+        } else {
             loggedInUser = (User) getIntent().getSerializableExtra("User");
         }
 
@@ -106,9 +104,8 @@ public class CardActivity extends AppCompatActivity {
             protected Void doInBackground(Void... voids) {
                 try {
                     setBarCardArrayList(new DatabaseHelper().getUserBarCards(getApplicationContext(), loggedInUser.getId()));
-                }
-                catch (SQLException e) {
-                    Log.e("getUserBarCards","Failed to get UsersCards do to SQL Exception", e);
+                } catch (SQLException e) {
+                    Log.e("getUserBarCards", "Failed to get UsersCards do to SQL Exception", e);
                 }
                 return null;
             }

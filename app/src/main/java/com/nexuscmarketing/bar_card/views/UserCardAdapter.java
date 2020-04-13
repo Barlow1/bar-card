@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nexuscmarketing.bar_card.R;
-import com.nexuscmarketing.bar_card.model.Bar;
 import com.nexuscmarketing.bar_card.model.UserBarCard;
 
 import java.util.ArrayList;

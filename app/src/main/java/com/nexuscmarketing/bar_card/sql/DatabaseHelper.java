@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import com.healthmarketscience.sqlbuilder.BinaryCondition;
+import com.healthmarketscience.sqlbuilder.ComboCondition;
 import com.healthmarketscience.sqlbuilder.DeleteQuery;
 import com.healthmarketscience.sqlbuilder.FunctionCall;
 import com.healthmarketscience.sqlbuilder.InsertQuery;
@@ -259,13 +260,14 @@ public class DatabaseHelper {
         return userBarCards;
     }
 
-    public ArrayList<UserBarCard> getUsersWithBarCards(UUID bardId, String email) throws SQLException {
+    public ArrayList<UserBarCard> getUsersWithBarCards(UUID barId, String query) throws SQLException {
         ArrayList<UserBarCard> userSearchResults = new ArrayList<>();
+        query = '%' + query + '%';
         String getUsers = new SelectQuery()
                 .addFromTable(USER)
                 .addJoin(SelectQuery.JoinType.INNER, USER, BAR_CARD, BinaryCondition.equalTo(BAR_CARD_USER_ID, ID))
-                .addCondition(BinaryCondition.equalTo(BAR_CARD_BAR_ID, bardId))
-                .addCondition(BinaryCondition.equalTo(EMAIL, email))
+                .addCondition(BinaryCondition.equalTo(BAR_CARD_BAR_ID, barId))
+                .addCondition(ComboCondition.or(BinaryCondition.like(EMAIL, query), BinaryCondition.like(FIRST_NAME, query), BinaryCondition.like(LAST_NAME, query)))
                 .addColumns(BAR_CARD_ID, FIRST_NAME, LAST_NAME, EMAIL, PUCNHES)
                 .validate().toString();
 

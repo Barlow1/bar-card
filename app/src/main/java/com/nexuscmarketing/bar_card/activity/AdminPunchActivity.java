@@ -1,7 +1,5 @@
 package com.nexuscmarketing.bar_card.activity;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.nexuscmarketing.bar_card.R;
 import com.nexuscmarketing.bar_card.model.Bar;
-import com.nexuscmarketing.bar_card.model.BarCard;
 import com.nexuscmarketing.bar_card.model.User;
 import com.nexuscmarketing.bar_card.model.UserBarCard;
 import com.nexuscmarketing.bar_card.sql.DatabaseHelper;

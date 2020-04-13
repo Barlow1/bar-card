@@ -6,20 +6,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nexuscmarketing.bar_card.R;
 import com.nexuscmarketing.bar_card.model.Bar;
-import com.nexuscmarketing.bar_card.model.BarCard;
-import com.nexuscmarketing.bar_card.model.User;
 import com.nexuscmarketing.bar_card.model.UserBarCard;
 import com.nexuscmarketing.bar_card.sql.DatabaseHelper;
-import com.nexuscmarketing.bar_card.views.CardViewAdapter;
 import com.nexuscmarketing.bar_card.views.UserCardAdapter;
 
 import java.sql.SQLException;
@@ -29,6 +26,7 @@ public class UserSearchResults extends AppCompatActivity {
     ArrayList<UserBarCard> barCardUsers;
     Bar adminBar;
     RecyclerView barCarsUsersList;
+    TextView noCards;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,11 +34,12 @@ public class UserSearchResults extends AppCompatActivity {
         setContentView(R.layout.user_search_results);
         adminBar = (Bar) getIntent().getBundleExtra(SearchManager.APP_DATA).getSerializable("adminBar");
         barCarsUsersList = findViewById(R.id.bar_card_users);
-//        barCarsUsersList.setHasFixedSize(true);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         barCarsUsersList.setLayoutManager(layoutManager);
         barCarsUsersList.setItemAnimator(new DefaultItemAnimator());
+        noCards = findViewById(R.id.no_user_cards);
+        noCards.setVisibility(View.INVISIBLE);
         handleIntent(getIntent());
     }
 
@@ -54,7 +53,6 @@ public class UserSearchResults extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            //doMySearch(query);
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
@@ -69,6 +67,9 @@ public class UserSearchResults extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+                    if (barCardUsers.size() == 0) {
+                        noCards.setVisibility(View.VISIBLE);
+                    }
                     UserCardAdapter userCardAdapter = new UserCardAdapter(barCardUsers);
                     userCardAdapter.setOnItemClickListener(new UserCardAdapter.OnItemClickListener() {
                         @Override

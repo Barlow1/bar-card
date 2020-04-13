@@ -24,12 +24,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class RegisterActivityUnitTests {
+
     @Rule
     public ActivityScenarioRule<RegisterActivity> activityRule;
 
     {
         activityRule = new ActivityScenarioRule<>(RegisterActivity.class);
     }
+
     @Test
     public void registrationUnsuccessfulWithMissingInformation() {
         onView(ViewMatchers.withId(R.id.register_email))

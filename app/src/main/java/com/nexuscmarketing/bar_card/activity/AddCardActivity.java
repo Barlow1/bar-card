@@ -1,17 +1,14 @@
 package com.nexuscmarketing.bar_card.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,7 +19,6 @@ import com.nexuscmarketing.bar_card.model.Bar;
 import com.nexuscmarketing.bar_card.model.User;
 import com.nexuscmarketing.bar_card.sql.DatabaseHelper;
 import com.nexuscmarketing.bar_card.views.BarListAdapter;
-import com.nexuscmarketing.bar_card.views.CardViewAdapter;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
