@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/main_menu_rewards"
+        android:title="Rewards"
+        app:showAsAction="always"></item>
+    <item
         android:id="@+id/main_menu_add"
         android:icon="@drawable/ic_add_24px"
         android:title=""

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">bar-card</string>
     <string name="email">Email</string>
+    <string name="phone">Phone Number</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -18,11 +19,14 @@
     <string name="text_not_member">No account yet? Create one</string>
     <string name="text_already_member">Already have an Account? Login</string>
     <string name="admin_user">I own a bar and want to be an admin</string>
-    <string name="no_cards">You have no BarCards :(</string>
+    <string name="no_cards">You have no BarCards, tap the \'+\' to add some!</string>
+    <string name="no_rewards">You have no rewards, keep punching to earn more!</string>
     <string name="admin_search_label">User Punch Search</string>
-    <string name="admin_search_hint">Email Address, First Name, Last Name</string>
+    <string name="admin_search_hint">Phone, Email, First Name, Last Name</string>
     <string name="static_punches">Punches:</string>
     <string name="admin_welcome">Welcome Bar-Card Admin!</string>
     <string name="search_user">Search for a user</string>
     <string name="no_user_cards">No user BarCards were found :(</string>
+    <string name="claim_reward">Claim Reward</string>
+
 </resources>

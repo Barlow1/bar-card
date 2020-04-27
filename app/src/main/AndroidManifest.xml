@@ -36,6 +36,9 @@
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
+        <activity android:name=".activity.RewardsActivity"
+            android:parentActivityName=".activity.CardActivity"/>
+
         <meta-data android:name="android.app.default_searchable"
             android:value=".activity.UserSearchResults" />
     </application>

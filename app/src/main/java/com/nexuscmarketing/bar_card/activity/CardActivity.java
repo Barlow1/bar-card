@@ -68,6 +68,12 @@ public class CardActivity extends AppCompatActivity {
             addCardIntent.putExtra("User", loggedInUser);
             startActivity(addCardIntent);
         }
+
+        if (id == R.id.main_menu_rewards) {
+            Intent rewardIntent = new Intent(CardActivity.this, RewardsActivity.class);
+            rewardIntent.putExtra("User", loggedInUser);
+            startActivity(rewardIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

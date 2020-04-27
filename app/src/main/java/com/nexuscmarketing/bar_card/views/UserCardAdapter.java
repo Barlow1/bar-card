@@ -15,8 +15,8 @@ import com.nexuscmarketing.bar_card.model.UserBarCard;
 import java.util.ArrayList;
 
 public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCardViewHolder> {
-    ArrayList<UserBarCard> barCardUsers = new ArrayList<>();
-    UserCardAdapter.OnItemClickListener listener;
+    private ArrayList<UserBarCard> barCardUsers;
+    private UserCardAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(View itemView, int position);
@@ -42,10 +42,12 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCa
     @Override
     public void onBindViewHolder(@NonNull UserCardAdapter.UserCardViewHolder holder, int position) {
         TextView email = holder.email;
+        TextView phone = holder.phone;
         TextView firstName = holder.firstName;
         TextView lastName = holder.lastName;
         TextView punches = holder.punches;
         email.setText(barCardUsers.get(position).getEmail());
+        phone.setText(barCardUsers.get(position).getPhone());
         firstName.setText(barCardUsers.get(position).getFirstName());
         lastName.setText(barCardUsers.get(position).getLastName());
         punches.setText((String.valueOf(barCardUsers.get(position).getPunches())));
@@ -58,14 +60,16 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCa
 
     public class UserCardViewHolder extends RecyclerView.ViewHolder {
         TextView email;
+        TextView phone;
         TextView firstName;
         TextView lastName;
         TextView punches;
         Button punchButton;
 
-        public UserCardViewHolder(@NonNull View itemView) {
+        private UserCardViewHolder(@NonNull View itemView) {
             super(itemView);
             this.email = itemView.findViewById(R.id.user_email);
+            this.phone = itemView.findViewById(R.id.user_phone);
             this.firstName = itemView.findViewById(R.id.user_first_name);
             this.lastName = itemView.findViewById(R.id.user_last_name);
             this.punches = itemView.findViewById(R.id.user_punches);

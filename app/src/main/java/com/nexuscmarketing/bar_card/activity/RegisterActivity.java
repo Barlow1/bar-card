@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         Button register = findViewById(R.id.register);
         TextView registerFirstName = findViewById(R.id.first_name_register);
         TextView registerLastName = findViewById(R.id.last_name_register);
+        TextView registerPhone = findViewById(R.id.register_phone);
         TextView registerEmail = findViewById(R.id.register_email);
         TextView registerPassword = findViewById(R.id.register_password);
         TextView loginLink = findViewById(R.id.link_login);
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                         && registerEmail.length() > 0 && registerPassword.length() > 0) {
                     String firstName = registerFirstName.getText().toString();
                     String lastName = registerLastName.getText().toString();
+                    String phone = registerPhone.getText().toString();
                     String email = registerEmail.getText().toString();
                     String password = registerPassword.getText().toString();
                     Integer adminCheck = registerAdminCheck.isChecked() ? 1 : 0;
@@ -72,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                             newUser.setId(UUID.randomUUID());
                             newUser.setFirstName(firstName);
                             newUser.setLastName(lastName);
+                            newUser.setPhone(phone);
                             newUser.setEmail(email);
                             newUser.setPassword(password);
                             newUser.setAdmin(adminCheck);

@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Integer admin;
+    private String phone;
 
     public UUID getId() {
         return id;
@@ -58,5 +59,13 @@ public class User implements Serializable {
 
     public void setAdmin(Integer admin) {
         this.admin = admin;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

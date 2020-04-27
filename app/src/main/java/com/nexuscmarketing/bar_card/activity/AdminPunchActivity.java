@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.nexuscmarketing.bar_card.model.Bar;
 import com.nexuscmarketing.bar_card.model.User;
 import com.nexuscmarketing.bar_card.model.UserBarCard;
 import com.nexuscmarketing.bar_card.sql.DatabaseHelper;
+import com.nexuscmarketing.bar_card.utils.ResourceUtil;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class AdminPunchActivity extends AppCompatActivity {
         setContentView(R.layout.admin_punch_activity);
         super.onCreate(savedInstanceState);
         adminUser = (User) getIntent().getSerializableExtra("AdminUser");
+        ImageView adminBarImage = findViewById(R.id.admin_bar_img);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -45,6 +49,12 @@ public class AdminPunchActivity extends AppCompatActivity {
                     Log.e("getAdminBar", "Failed to get AdminBar do to SQL Exception", e);
                 }
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+            adminBarImage.setImageResource(ResourceUtil.getDrawableIdByResName(getApplicationContext(), adminBar.getImageName()));
+                super.onPostExecute(aVoid);
             }
         }.execute();
 
