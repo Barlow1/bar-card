@@ -10,5 +10,5 @@ Sprint 3 Features Demo
 
 Sprint 4 features do not have a demo
 
-Sprint 5 Features Demo
-<img src="https://github.com/Barlow1/bar-card/blob/master/demo/BarCardSprint5Demo.gif" height="500px">
+Sprint 5 Features Demo  
+<img src="https://github.com/Barlow1/bar-card/blob/master/demo/Sprint5Demo.gif" height="500px">
